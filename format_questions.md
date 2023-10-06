@@ -1,6 +1,6 @@
 # Basic questions regarding containerized OCFL versions
 
-## Which format should the standard allow
+## Which format should the standard allow?
 
 ### One format
 Software must only know about one format to deal with OCFL objects.
@@ -49,17 +49,18 @@ Tar can be used in conjunction with compression formats
 * bz
 * br
 * z
+* ...
 
 #### Pro
 * streamable
 * very simple
 * any compression can be used
-* easy to append new files
+* easy to append new files (uncompressed only)
 * good support for development
 
 #### Contra
 * no direct file access
-* compression all or nothing
+* compression not on a per file basis 
 
 ### [7z](https://de.wikipedia.org/wiki/7z)
 
