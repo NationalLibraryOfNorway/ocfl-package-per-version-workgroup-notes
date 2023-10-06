@@ -1,6 +1,8 @@
 # OCFL Package Per Version Workgroup Notes
 Repository for notes, ideas, etc, from the the workgroup dedicated to introducing package per version model into OCFL specification.
 
+* [File Formats](format_questions.md)
+
 ## Motivation
 [The Oxford Common File Layout (OCFL)](https://github.com/OCFL/spec "OCFL spec repository on GitHub") offers a good way of organizing files with focus on versioning.
 However some people are interested in the use case where they can package contents of the version folders.
@@ -13,3 +15,4 @@ Currently the workgroup consists of:
 - [Jürgen Enge](https://www.linkedin.com/in/j%C3%BCrgen-enge-287873)
 - [Thomas Edvardsen](https://www.linkedin.com/in/thomasedvardsen)
 - [Daniel Aaron Salwerowicz](https://www.linkedin.com/in/salwerowicz)
+
