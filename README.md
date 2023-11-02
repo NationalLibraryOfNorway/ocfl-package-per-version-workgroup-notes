@@ -4,6 +4,9 @@ Repository for notes, ideas, etc, from the the workgroup dedicated to introducin
 * [File Formats](format_questions.md)
 * [Single or Multifile Containers](single_multifile_questions.md)
 
+## Proposal
+* [Low Impact](proposal_low_impact.md)
+
 ## Motivation
 [The Oxford Common File Layout (OCFL)](https://github.com/OCFL/spec "OCFL spec repository on GitHub") offers a good way of organizing files with focus on versioning.
 However some people are interested in the use case where they can package contents of the version folders.
