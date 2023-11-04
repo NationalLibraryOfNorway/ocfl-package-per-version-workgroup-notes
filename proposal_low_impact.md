@@ -18,6 +18,11 @@ There are two ways of validating the content of the ocfl object:
 * `full validation` via inventory.json and zip file content check
 * `sidecar validation` by checking the zip file(s) only
 
+### Migration
+Since the inventory.json structure is not changed, the migration is
+quite easy in both directions. Every content folder can be replaced by the 
+ZIP file and vice versa.
+
 ### Single File Container
 ```
 ├── 0=ocfl_object_1.1
