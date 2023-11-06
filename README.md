@@ -19,4 +19,3 @@ Currently the workgroup consists of:
 - [Jürgen Enge](https://www.linkedin.com/in/j%C3%BCrgen-enge-287873)
 - [Thomas Edvardsen](https://www.linkedin.com/in/thomasedvardsen)
 - [Daniel Aaron Salwerowicz](https://www.linkedin.com/in/salwerowicz)
-
