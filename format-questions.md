@@ -42,7 +42,7 @@ However that would provide most freedom to the users.
 
 **Recommendation: out of scope for V2.**
 
-## Should the standard allow multivolume containers per version?
+## Should the standard allow multipart containers per version?
 For very large objects, it might be useful to split the container into multiple files.
 In addition it could help with transfer of large objects as it might be easier to transfer multiple smaller files than one large file.
 For some institutions, it may be desirable to package files according to type of content - for example metadata, preservation files, access files, etc. 
@@ -53,7 +53,10 @@ Since there are quite a bit of questions surrounding that topic, see [Single VS 
 **Recommendation: in-scope for V2.**
 
 ## Should the standard allow encrypted containers?
-If you need to store sensitive data/files in the container, you should either encrypt files before packaging them or only allows access to the container to authorized users.
+Encryption while useful will make it more difficult to implement OCFL software capable of handling that.
+If you need to store sensitive data/files in the container, you should encrypt the files before packaging them.
+Alternatively only allows access to the container/OCFL repository to authorized users.
+In other words, encryption is not necessary for the container itself, there are other ways of handling that.
 
 **Recommendation: out of scope for V2.**
 
@@ -61,6 +64,8 @@ If you need to store sensitive data/files in the container, you should either en
 Compression could be useful to reduce the size of the container.
 Some organizations might have limited funds and saving storage might be more important than saving processing power or risking quality loss.
 In addition it might be useful to compress the container to reduce the time needed to transfer it.
+Information about compression should be preserved in some way, so that the container can be extracted more easily in the future.
+It's also important to consider how that would impact implementing software.
 
 **Recommendation: in-scope for V2, but strictly optional, uncompressed by default.**
 
@@ -69,6 +74,11 @@ By mixed version we mean that some versions are in a container, while others are
 Would there be any issues with such a solution, either in terms of implementation or preservation, maybe some other practical limitations?
 
 **Recommendation: in-scope for V2.**
+
+Another form of mixed versions would be to have some versions in one container format, while others are in a different format.
+Such a solution would be more complex to implement, and we don't see any benefit or use-case for it.
+
+**Recommendation: out of scope for V2.**
 
 ## [File formats](https://en.wikipedia.org/wiki/List_of_archive_formats)
 
