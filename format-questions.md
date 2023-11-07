@@ -1,5 +1,10 @@
 # Basic questions regarding containerized OCFL versions
 
+> [!NOTE]
+> In this document container, package, and archive are used interchangeably.
+> All of them refer to either packages of zip, tar, 7zip or other similar formats.
+> By default the term container is used, and it refers to an uncompressed container.
+
 ## Which format should the standard allow?
 It's a good idea to allow multiple formats. 
 But this will make it more difficult to implement software, which can deal with all formats.
@@ -23,21 +28,21 @@ Should the new format be chosen based on the criteria above, or strictly based o
 Would lead to more work to implement an OCFL compliant software. 
 But software users can choose the best format for their specific use case.
 
-If the standard allows multiple formats, how to handle them in the repository or object?
+If the standard allows multiple package formats, how to handle them in the repository or object?
 Should it be possible to use multiple packaging formats in one OCFL object?
 How about several formats in the repository?
 
 **Recommendation: in-scope for V2. Allowed formats: ZIP and TAR.**
 
 ### Any format
-It is practically impossible to implement software, which can deal with all formats.
+It is practically impossible to implement software, which can deal with all packaging formats.
 That would most likely result in low adoption rate and a lot of work for implementers.
 Which could also result in either buggy/incomplete implementations or very specific implementations, which are not useful for others.
 However that would provide most freedom to the users.
 
 **Recommendation: out of scope for V2.**
 
-## Should the standard allow multiple files per version?
+## Should the standard allow multivolume packages per version?
 For very large objects, it might be useful to split the container into multiple files.
 In addition it could help with transfer of large objects as it might be easier to transfer multiple smaller files than one large file.
 For some institutions, it may be desirable to package files according to type of content - for example metadata, preservation files, access files, etc. 
