@@ -6,7 +6,7 @@ Status: Draft
 
 ## Decisions
 * [Format](format-questions.md): ZIP
-* [Single or Multifile Containers](single-multifile-questions.md): Both
+* [Single or Multipart Containers](single-multipart-questions.md): Both
 
 ## Proposal
 Replace `content` folder with `content.zip` file.

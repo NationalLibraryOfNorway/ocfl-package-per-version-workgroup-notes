@@ -7,8 +7,8 @@ Instead an additional inventory-unpacked.json is used to describe the object aft
 (Name is subject to change, inventory-deflated.json or others are also possible.)
 
 ## Decisions
-* [Format](format_questions.md): ZIP (although TAR could be used as well since it also supports multi-volume archives)
-* [Single or Multifile Containers](single_multifile_questions.md): Both
+* [Format](format-questions.md): ZIP (although TAR could be used as well since it also supports multi-volume archives)
+* [Single or Multipart Containers](single-multipart-questions.md): Both
 
 ## Proposal
 Replace `content` folder with `content.zip` file.
@@ -232,4 +232,3 @@ The zip file numbering follows the same rules as the version folder numbering.
     ├── inventory-unpacked.json
     └── inventory-unpacked.json.sha512
 ```
-
