@@ -9,9 +9,9 @@ Status: Draft
 * [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): Both
 
 ## Proposal
-Replace `content` folder with `content.zip` file.
-The file contains the content of the folder __excluding__ the folder name `content`.
-Every file has a sidecar with the checksum of the file. 
+Replace `content` folder with `content.zip` container.
+The container contains the content of the folder __excluding__ the folder name `content`.
+Every archive has a sidecar with the checksum of the file. 
 
 There are two ways of validating the content of the ocfl object:
 * `full validation` via inventory.json and zip file content check

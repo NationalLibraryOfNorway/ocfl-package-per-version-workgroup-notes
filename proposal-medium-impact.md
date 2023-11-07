@@ -2,21 +2,21 @@
 Author: [Daniel Aaron Salwerowicz](mailto:daniel@salwerowi.cz), based on "[Low Impact](proposal-low-impact.md)" proposal by: [Jürgen Enge](mailto:juergen@info-age.net)  
 Status: Draft
 
-"Medium impact" means that the inventory.json structure is not changed.
-Instead an additional inventory-unpacked.json is used to describe the object after it has been unpacked.
-(Name is subject to change, inventory-deflated.json or others are also possible.)
+"Medium impact" means that the `inventory.json` structure is not changed.
+Instead an additional `inventory-unpacked.json` is used to describe the object after it has been unpacked.
+(Name is subject to change, `inventory-deflated.json` or others are also possible.)
 
 ## Decisions
-* [Format](format-questions.md): ZIP (although TAR could be used as well since it also supports multi-volume archives)
+* [Format](format-questions.md): ZIP (although TAR could be used, in this case replace `zip` with `tar` in the proposal)
 * [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): Both
 
 ## Proposal
-Replace `content` folder with `content.zip` file.
+Replace `content` folder with `content.zip` container.
 Top level folder of the `content.zip` file should be `content` so that it can be "unpacked in situ".
-Every `content.zip` file has a sidecar with the checksum of the file.
+Every `content.zip` container has a sidecar with the checksum of the archive file.
 
-In this proposal the inventory.json described only the `content.zip` and is unaware of its contents.
-On the other hand the inventory-unpacked.json will exclude `content.zip` and describe its unpacked content.
+In this proposal the `inventory.json` describes only the `content.zip` and is unaware of its contents.
+On the other hand the `inventory-unpacked.json` will exclude `content.zip` and describe OCFL objects after unpacking the archive.
 It will also contain a block of information about what version of zip file format was used, what tool packed it, if it's compressed, etc.
 The goal of this block is to provide all necessary information to be able to unpack the `content.zip` file.
 A tentative json structure of this block can be as follows:
@@ -41,12 +41,15 @@ A tentative json structure of this block can be as follows:
 }
 ```
 
+Note that the names of variables, structure, etc. are subject to change and are provided here as an example for further discussion.
+
 There are two ways of validating the content of the ocfl object:
-* `full validation` via validating inventory.json as normal, but also using inventory-unpacked.json to check zip file content
-* `sidecar validation` by checking the zip file(s) only
+* `full validation` via validating `inventory.json` as normal, but also using `inventory-unpacked.json` to check zip file contents
+* `sidecar validation` by validating `inventory.json` only, hoping that container was packed correctly
 
 ### Migration
-In the simplest version of migration the inventory.json changes the files references to only `content.zip` file, eg:
+In the simplest version of migration the `inventory.json` changes file references to only `content.zip` file.
+So for example the following `inventory.json`:
 
 ```json
 {
@@ -130,12 +133,25 @@ will be changed to:
 }
 ```
 
-While the contents of inventory-unpacked.json refer to files in OCFL object the same as inventory.json did before, with additional `archiveInformation` block.
-It might be able to automate the creation of inventory-unpacked.json from inventory.json, but it might be easier to allow users to make their own decision on it.
-In my mind the most likely way this feature would be implemented is where user creates new objects following this standard, or only migrate when adding new version to existing objects.
-While migrating they could either package old versions (I don't think this is recommended as it would end up changing old versions) or just add new version as a package.
-When adding new version as a package they would have to create inventory-unpacked.json for new version only and in inventory json just add reference to new content.zip file.
-This could probably be automated in the tool to allow that.
+While the contents of `inventory-unpacked.json` refer to files in OCFL object the same as `inventory.json` did before, with additional `archiveInformation` block.
+
+It might be possible to automate the creation of `inventory-unpacked.json` from `inventory.json`, but it might be easier to allow users to make their own decision on it.
+In my mind the most likely way this users of this feature would either:
+- Only create new objects following this standard, letting the old objects be.
+  - Least impact to their collection, allows gradual adoption.
+  - When adding new versions the object would get new version with `inventory-unpacked.json` while old versions are untouched.
+  - Would result in a mixed collection of objects with and without `inventory-unpacked.json`.
+- Only migrate when adding new version to existing objects or during access.
+  - Would result in reprocessing whole object, but only when already accessing it for other reasons.
+  - Less processing power needed, but more impact on users as retrieval of object would be slower (if migrating on access).
+
+Both of those approaches would result in a mixed collection of objects with and without `inventory-unpacked.json` and packaged versions.
+These approaches could be combined and the user could decide which objects to migrate and when.
+This might also be done in batches, especially if a migration tool is developed.
+
+I don't think many users would reprocess their whole repository to pack all objects at once.
+That would be a rather expensive and error prone project.
+However smaller repositories might want to do that.
 
 ### Single File Container
 Simple case where object content is stored in a single zip file.
