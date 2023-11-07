@@ -10,9 +10,9 @@ Therefore in case where we have to choose one format over the other we should co
   - If there are not enough OCFL users who employ file packaging, what format is most used in digital preservation in general?
 
 ### One format
-Implementing software must only know how to deal with one format in OCFL objects, which makes implementation easier.
+Implementing software must only know how to deal with one package format in OCFL objects, which makes implementation easier.
 Standard might be too restrictive to users for whom given format is not suitable, so they might not use OCFL or make their own extensions.
-Possible solution is to allow one format, but allow users to add their own extensions to the standard, which they then have to implement themselves.
+Possible solution is to allow one package format, but allow users to add their own extensions to the standard, which they then have to implement themselves.
 
 If the standard allows only one format, what format should it be?
 Should the new format be chosen based on the criteria above, or strictly based on popularity or practical considerations?
@@ -46,6 +46,8 @@ This makes it possible to extract a small file, and not an entire movie of sever
 **Recommendation: in-scope for V2.**
 
 ## Should the standard allow encrypted containers?
+If you need to store sensitive data/files in the container, you should either encrypt files before packaging them or only allows access to the container to authorized users.
+
 **Recommendation: out of scope for V2.**
 
 ## Should the standard allow compression?
@@ -53,7 +55,7 @@ Compression could be useful to reduce the size of the container.
 Some organizations might have limited funds and saving storage might be more important than saving processing power or risking quality loss.
 In addition it might be useful to compress the container to reduce the time needed to transfer it.
 
-**Recommendation: out of scope for V2.**
+**Recommendation: in-scope for V2, but strictly optional, uncompressed by default.**
 
 ## Should the standard allow for mixed versions?
 By mixed version we mean that some versions are in a container, while others are not (e.g. version 1 is in a container, while version 2 contains lose files).

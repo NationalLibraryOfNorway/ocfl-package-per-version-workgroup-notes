@@ -2,7 +2,7 @@
 Repository for notes, ideas, etc, from the the workgroup dedicated to introducing package per version model into OCFL specification.
 
 * [File Formats](format-questions.md)
-* [Single or Multipart Containers](single-multifile-questions.md)
+* [Single or Multipart Containers](single-multipart-questions.md)
 
 ## Proposal
 * [Low Impact](proposal-low-impact.md)
