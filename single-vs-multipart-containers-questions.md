@@ -1,4 +1,4 @@
-# Basic Questions regarding single or multipart containers
+# Questions regarding single or multipart containers
 
 ## Single File
 ### Pros

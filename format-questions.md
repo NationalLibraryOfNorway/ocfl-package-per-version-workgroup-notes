@@ -15,7 +15,7 @@ Therefore in case where we have to choose one format over the other we should co
   - If there are not enough OCFL users who employ file packaging, what format is most used in digital preservation in general?
 
 ### One format
-Implementing software must only know how to deal with one package format in OCFL objects, which makes implementation easier.
+Implementing software must only know how to deal with one container format in OCFL objects, which makes implementation easier.
 Standard might be too restrictive to users for whom given format is not suitable, so they might not use OCFL or make their own extensions.
 Possible solution is to allow one package format, but allow users to add their own extensions to the standard, which they then have to implement themselves.
 
@@ -28,25 +28,27 @@ Should the new format be chosen based on the criteria above, or strictly based o
 Would lead to more work to implement an OCFL compliant software. 
 But software users can choose the best format for their specific use case.
 
-If the standard allows multiple package formats, how to handle them in the repository or object?
-Should it be possible to use multiple packaging formats in one OCFL object?
+If the standard allows multiple archive formats, how to handle them in the repository or object?
+Should it be possible to use multiple container formats in one OCFL object?
 How about several formats in the repository?
 
 **Recommendation: in-scope for V2. Allowed formats: ZIP and TAR.**
 
 ### Any format
-It is practically impossible to implement software, which can deal with all packaging formats.
+It is practically impossible to implement software, which can deal with all container formats.
 That would most likely result in low adoption rate and a lot of work for implementers.
 Which could also result in either buggy/incomplete implementations or very specific implementations, which are not useful for others.
 However that would provide most freedom to the users.
 
 **Recommendation: out of scope for V2.**
 
-## Should the standard allow multivolume packages per version?
+## Should the standard allow multivolume containers per version?
 For very large objects, it might be useful to split the container into multiple files.
 In addition it could help with transfer of large objects as it might be easier to transfer multiple smaller files than one large file.
 For some institutions, it may be desirable to package files according to type of content - for example metadata, preservation files, access files, etc. 
 This makes it possible to extract a small file, and not an entire movie of several terabytes to extract only the metadata.
+
+Since there are quite a bit of questions surrounding that topic, see [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md) for more details.
 
 **Recommendation: in-scope for V2.**
 

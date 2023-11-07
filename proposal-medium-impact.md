@@ -8,7 +8,7 @@ Instead an additional inventory-unpacked.json is used to describe the object aft
 
 ## Decisions
 * [Format](format-questions.md): ZIP (although TAR could be used as well since it also supports multi-volume archives)
-* [Single or Multipart Containers](single-multipart-questions.md): Both
+* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): Both
 
 ## Proposal
 Replace `content` folder with `content.zip` file.
