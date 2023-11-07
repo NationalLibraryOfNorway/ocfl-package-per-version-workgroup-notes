@@ -1,11 +1,12 @@
 # OCFL Package Per Version Workgroup Notes
 Repository for notes, ideas, etc, from the the workgroup dedicated to introducing package per version model into OCFL specification.
 
-* [File Formats](format_questions.md)
-* [Single or Multifile Containers](single_multifile_questions.md)
+* [File Formats](format-questions.md)
+* [Single or Multifile Containers](single-multifile-questions.md)
 
 ## Proposal
-* [Low Impact](proposal_low_impact.md)
+* [Low Impact](proposal-low-impact.md)
+* [Medium Impact](proposal-medium-impact.md)
 
 ## Motivation
 [The Oxford Common File Layout (OCFL)](https://github.com/OCFL/spec "OCFL spec repository on GitHub") offers a good way of organizing files with focus on versioning.

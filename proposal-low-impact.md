@@ -5,8 +5,8 @@ Status: Draft
 "Low impact" means that the inventory.json structure is not changed.
 
 ## Decisions
-* [Format](format_questions.md): ZIP
-* [Single or Multifile Containers](single_multifile_questions.md): Both
+* [Format](format-questions.md): ZIP
+* [Single or Multifile Containers](single-multifile-questions.md): Both
 
 ## Proposal
 Replace `content` folder with `content.zip` file.
