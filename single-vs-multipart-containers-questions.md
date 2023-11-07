@@ -29,7 +29,7 @@ Supporting multipart containers per version can be done in different ways:
 * Binary container split 
   * Container is split into sub-containers at binary level and must be concatenated to get a usable container
 * Multipart split by container format
-  * Every container file contains a part of the complete container
+  * Every sub-container contains full files and is a part of the complete container
 
 | Type                                    | Pros                                | Cons                                                      |
 | --------------------------------------- | ----------------------------------- | --------------------------------------------------------- |
