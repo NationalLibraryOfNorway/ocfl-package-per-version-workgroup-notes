@@ -7,6 +7,7 @@ Repository for notes, ideas, etc, from the the workgroup dedicated to introducin
 ## Proposal
 * [Low Impact](proposal-low-impact.md)
 * [Medium Impact](proposal-medium-impact.md)
+* [High Impact](proposal-high-impact.md)
 
 ## Motivation
 [The Oxford Common File Layout (OCFL)](https://github.com/OCFL/spec "OCFL spec repository on GitHub") offers a good way of organizing files with focus on versioning.
