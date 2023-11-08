@@ -53,7 +53,7 @@ Using both of those blocks would theoretically allow users to create mixed versi
       "archiveInformation": {
         "archiveFormat": "zip",
         "version": "6.3.3",
-        "packingInformation" {
+        "packingInformation": {
           "packingTool": "zip",
           "packingToolVersion": "3.0",
           "packingCommands" : [ "zip -r -6 -q -o content.zip content" ]
@@ -84,7 +84,7 @@ Using both of those blocks would theoretically allow users to create mixed versi
       "archiveInformation": {
         "archiveFormat": "zip",
         "version": "6.3.3",
-        "packingInformation" {
+        "packingInformation": {
           "packingTool": "zip",
           "packingToolVersion": "3.0",
           "packingCommands" : [ "zip -r -s 10 -q -o content.zip content" ]
@@ -114,7 +114,11 @@ Using both of those blocks would theoretically allow users to create mixed versi
 The name of the block is subject to change, could be `containerManifest`, `packageManifest`, etc.
 
 We were thinking about implementing information about which files are located in which container in multipart archives.
-An idea we had was to format these blocks in following manner:
+We have two possible proposals for solving that issue, both of which are described below.
+
+#### Add an `archiveContents` Block
+Add an additional block that would contain information about which files are in which archive.
+This would be conveyed by using the same identifiers (SHA-512 hashes) as in the `state` and `archiveManifest` blocks.
 
 Single archive:
 ```json
@@ -154,9 +158,85 @@ Multiple archives:
 }
 ```
 
+#### Restructure `state` and `archiveManifest` Blocks
+Another proposal is to change the way `state` and `archiveManifest` block are used.
+In this case the `state` block would refer only to the archives in the version folder.
+The `archiveManifest` block would contain information about which files are in which archive.
+
+Single archive:
+```json
+{
+  "state": {
+    "fda345...34a": [ "content.zip" ]
+  },
+  "archiveManifest": {
+    "fda345...34a": {
+      "cf83e1...a3e": [ "checksum.md5" ],
+      "f15428...83f": [ "preservation/image.tiff" ],
+      "85f2b0...007": [ "view/image.jpg" ]
+    }
+  }
+}
+```
+
+Multiple archives:
+```json
+{      
+  "state": {
+    "fda345...34a": [ "content.zip" ],
+    "adf234...53f": [ "content.z01" ],
+    "ea443b...76e": [ "content.z02" ]
+  },
+  "archiveManifest": {
+    "fda345...34a": {
+      "d66d80...8bd": [ "checksum.md5" ]
+    },
+    "adf234...53f": {
+      "2b0ff8...620": [ "preservation/large-image.tiff" ]
+    },
+    "ea443b...76e": {
+      "921d36...877": [ "view/large-image.jpg" ]
+    }
+  }
+}
+```
+
+#### Proposal Comparison
+First proposal has the benefit of making the `archiveContents` block optional.
+So in cases where the user does not care about the contents of the archives, they can omit the block.
+Alternatively it might be impossible to determine the contents of the archives, for example in case of binary splits.
+It can also handle cases where a single file is spread over multiple archives.
+Negative is the duplication of data, which can be a problem in case of objects with many files.
+
+The second proposal tries to make the `state` block more consistent with the way it has been used so far.
+Additionally it avoids duplicating information.
+However it would require the `archiveManifest` block to be present in all cases.
+This can be a problem if contents of the archives are not known, or when same file is spread over several archives.
+
 ### The `archiveInformation` Block
 The name of the block is subject to change, could be `containerInformation`, `packageInformation`, etc.
 This block contains information about the archive file.
+
+```json
+"archiveInformation": {
+  "archiveFormat": "zip",
+  "version": "6.3.3",
+  "packingInformation": {
+    "packingTool": "zip",
+    "packingToolVersion": "3.0",
+    "packingCommands" : [ "zip -r -6 -q -o content.zip content" ]
+  },
+  "unpackingInformation": {
+    "unpackingTool": "unzip",
+    "unpackingToolVersion": "6.0",
+    "unpackingCommands" : [ "unzip -q content.zip" ]
+  },
+  "compression" : {
+    "algorithm": "deflate",
+    "level": 6
+  }
+}
+```
 
 Proposed contents:
 - `archiveFormat`: either `zip` or `tar`
