@@ -1,11 +1,11 @@
-# Basic questions regarding containerized OCFL versions
+# Basic Questions Regarding Containerized OCFL Versions
 
 > [!NOTE]
 > In this document container, package, and archive are used interchangeably.
 > All of them refer to either packages of zip, tar, 7zip or other similar formats.
 > By default the term container is used, and it refers to an uncompressed container.
 
-## Which format should the standard allow?
+## Which Format Should the Standard Allow?
 It's a good idea to allow multiple formats. 
 But this will make it more difficult to implement software, which can deal with all formats.
 Therefore in case where we have to choose one format over the other we should consider the following criteria:
@@ -14,7 +14,7 @@ Therefore in case where we have to choose one format over the other we should co
 - How many current users of OCFL use the format, either on it's own or in combination with OCFL?
   - If there are not enough OCFL users who employ file packaging, what format is most used in digital preservation in general?
 
-### One format
+### One Format
 Implementing software must only know how to deal with one container format in OCFL objects, which makes implementation easier.
 Standard might be too restrictive to users for whom given format is not suitable, so they might not use OCFL or make their own extensions.
 Possible solution is to allow one package format, but allow users to add their own extensions to the standard, which they then have to implement themselves.
@@ -24,7 +24,7 @@ Should the new format be chosen based on the criteria above, or strictly based o
 
 **Recommendation: too restrictive**
 
-### Multiple formats
+### Multiple Formats
 Would lead to more work to implement an OCFL compliant software. 
 But software users can choose the best format for their specific use case.
 
@@ -34,7 +34,7 @@ How about several formats in the repository?
 
 **Recommendation: in-scope for V2. Allowed formats: ZIP and TAR.**
 
-### Any format
+### Any Format
 It is practically impossible to implement software, which can deal with all container formats.
 That would most likely result in low adoption rate and a lot of work for implementers.
 Which could also result in either buggy/incomplete implementations or very specific implementations, which are not useful for others.
@@ -42,7 +42,7 @@ However that would provide most freedom to the users.
 
 **Recommendation: out of scope for V2.**
 
-## Should the standard allow multipart containers per version?
+## Should The Standard Allow Multipart Containers Per Version?
 For very large objects, it might be useful to split the container into multiple files.
 In addition it could help with transfer of large objects as it might be easier to transfer multiple smaller files than one large file.
 For some institutions, it may be desirable to package files according to type of content - for example metadata, preservation files, access files, etc. 
@@ -52,7 +52,7 @@ Since there are quite a bit of questions surrounding that topic, see [Single VS 
 
 **Recommendation: in-scope for V2.**
 
-## Should the standard allow encrypted containers?
+## Should The Standard Allow Encrypted Containers?
 Encryption while useful will make it more difficult to implement OCFL software capable of handling that.
 If you need to store sensitive data/files in the container, you should encrypt the files before packaging them.
 Alternatively only allows access to the container/OCFL repository to authorized users.
@@ -60,7 +60,7 @@ In other words, encryption is not necessary for the container itself, there are 
 
 **Recommendation: out of scope for V2.**
 
-## Should the standard allow compression?
+## Should The Standard Allow Compression?
 Compression could be useful to reduce the size of the container.
 Some organizations might have limited funds and saving storage might be more important than saving processing power or risking quality loss.
 In addition it might be useful to compress the container to reduce the time needed to transfer it.
@@ -69,7 +69,7 @@ It's also important to consider how that would impact implementing software.
 
 **Recommendation: in-scope for V2, but strictly optional, uncompressed by default.**
 
-## Should the standard allow for mixed versions?
+## Should The Standard Allow For Mixed Versions?
 By mixed version we mean that some versions are in a container, while others are not (e.g. version 1 is in a container, while version 2 contains lose files).
 Would there be any issues with such a solution, either in terms of implementation or preservation, maybe some other practical limitations?
 
@@ -80,7 +80,7 @@ Such a solution would be more complex to implement, and we don't see any benefit
 
 **Recommendation: out of scope for V2.**
 
-## [File formats](https://en.wikipedia.org/wiki/List_of_archive_formats)
+## [File Formats](https://en.wikipedia.org/wiki/List_of_archive_formats)
 
 ### [ZIP](https://en.wikipedia.org/wiki/ZIP_(file_format)) 
 * [ZIP_PK](https://www.loc.gov/preservation/digital/formats/fdd/fdd000354.shtml), ZIP file format (PKWARE)

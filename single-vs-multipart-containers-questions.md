@@ -1,4 +1,4 @@
-# Questions regarding single or multipart containers
+# Questions Regarding Single or Multipart Containers
 
 ## Single File Containers
 ### Pros
@@ -21,7 +21,7 @@
 * More complex to handle (e.g. copy, move, validate, ...)
 * Might require manual partitioning of files (see next section)
 
-### Types of multipart container files
+### Types of Multipart Container Files
 Supporting multipart containers per version can be done in different ways:
 
 * Independently split containers

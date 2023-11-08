@@ -187,13 +187,9 @@ Simple case where object content is stored in a single zip file.
      └── inventory-unpacked.json.sha512
 ```
 
-### Multi Part Zip Container
+### Multi Part Containers
 More complex case where object content is stored in multiple zip files.
 Naming conventions of multipart zip files are used.
-
-> [!NOTE]
-> Since this feature is not supported by all zip libraries and tools, it is __not__ recommended to make it part of the standard.  
-> Alternatively if the standard goes for TAR instead of ZIP it might be possible to use TAR multi-volume archives.
 
 ```
 ├── 0=ocfl_object_1.1
@@ -223,10 +219,9 @@ Naming conventions of multipart zip files are used.
      ├── inventory-unpacked.json
      └── inventory-unpacked.json.sha512
 ```
- 
-### Multi-Zip Content
-Files of the `content` folder are distributed over separate zip files. 
-The zip file numbering follows the same rules as the version folder numbering. 
+
+### Mixed Content
+Object with both single and multi part containers as well as lose files.
 
 ```
 ├── 0=ocfl_object_1.1
@@ -236,23 +231,30 @@ The zip file numbering follows the same rules as the version folder numbering.
 ├── inventory-unpacked.json
 ├── inventory-unpacked.json.sha512
 ├── v1
-│   ├── content.1.zip
-│   ├── content.1.zip.sha512
-│   ├── content.2.zip
-│   ├── content.2.zip.sha512
-│   ├── content.3.zip
-│   ├── content.3.zip.sha512
+│   ├── content.zip
+│   ├── content.zip.sha512
 │   ├── inventory.json
 │   ├── inventory.json.sha512
 │   ├── inventory-unpacked.json
 │   └── inventory-unpacked.json.sha512
-└── v2
-     ├── content.1.zip
-     ├── content.1.zip.sha512
-     ├── content.2.zip
-     ├── content.2.zip.sha512
+├── v2
+│   ├── content.zip
+│   ├── content.zip.sha512
+│   ├── content.z01
+│   ├── content.z01.sha512 
+│   ├── content.z02
+│   ├── content.z02.sha512
+│   ├── inventory.json
+│   ├── inventory.json.sha512
+│   ├── inventory-unpacked.json
+│   └── inventory-unpacked.json.sha512
+└── v3
      ├── inventory.json
      ├── inventory.json.sha512
-     ├── inventory-unpacked.json
-     └── inventory-unpacked.json.sha512
+     └── content.z01
+          ├── checksum.md5
+          ├── preservation
+          │   └── unpacked-image.tiff
+          └── view
+               └── unpacked-image.jpg
 ```

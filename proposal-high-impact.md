@@ -14,6 +14,7 @@ Instead of an additional `inventory-unpacked.json` file, the `inventory.json` is
 This block works like a manifest for the version, while the existing `state` block describes the state of the object after unpacking the archive.
 It will also contain a block of information about what kind of container is is, its format version, what tool packed it, if it's compressed, etc.
 The goal of this block is to provide all necessary information to be able to unpack the container file.
+Container compression is strictly optional, and by default not used.
 
 Using both of those blocks would theoretically allow users to create mixed versions and even use various archive formats in the same object.
 
@@ -109,12 +110,36 @@ Using both of those blocks would theoretically allow users to create mixed versi
 }
 ```
 
+### `archiveManifest` Block
+The name of the block is subject to change, could be `containerManifest`, `packageManifest`, etc.
+
+### `archiveInformation` Block
+The name of the block is subject to change, could be `containerInformation`, `packageInformation`, etc.
+This block contains information about the archive file.
+
+Proposed contents:
+- `archiveFormat`: either `zip` or `tar`
+- `version`: version of the archive format
+- `packingInformation`: information about the tool that packed the archive
+  - `packingTool`: name of the tool that packed the archive
+  - `packingToolVersion`: version of the tool that packed the archive
+  - `packingCommands`: list of commands that were used to pack the archive, using a list here as you can use multiple commands to pack the archive
+- `unpackingInformation`: information about the known tool that can be used to unpack the archive
+  - `unpackingTool`: name of the tool to unpack the archive
+  - `unpackingToolVersion`: version of the tool to unpack the archive
+  - `unpackingCommands`: list of commands to use to unpack the archive, using a list here as you can use multiple commands to unpack the archive
+- `compression`: information talking about the compression, not present if compression was not used
+  - `algorithm`: name of the compression algorithm used, if applicable
+  - `level`: level of compression used, if applicable
+
+All of those elements are subject to change as the proposal is discussed.
+
 ### Validation
 There are two ways of validating the content of the OCFL object:
 * `full validation` validation with both `state` and `archiveManifest` blocks, would require either a tool that can validate contents of the archive or unpacking the archive and validating the contents
 * `simple valication` by validating only archive or unpacked files, while not checking the contents of the archives
 
-### Problems with the proposal
+### Problems With The Proposal
 We have identified following problems with the proposal:
 * There is no easy way to validate the contents of the archive. 
   * The `inventory.json` can be validated as normal, but the container contents cannot be validated without unpacking the archive.

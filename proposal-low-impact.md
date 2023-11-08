@@ -77,7 +77,7 @@ Naming conventions of multipart zip files are used.
      ├── inventory.json
      └── inventory.json.sha512
 ```
- 
+
 ### Multi-Zip Content
 Files of the `content` folder are distributed over separate zip files. 
 The zip file numbering follows the same rules as the version folder numbering. 
@@ -104,7 +104,8 @@ The zip file numbering follows the same rules as the version folder numbering.
      ├── inventory.json
      └── inventory.json.sha512
 ```
-## Option with `inventory.json` section
+
+## Option With `inventory.json` Section
 Based on [issue comment](https://github.com/OCFL/Use-Cases/issues/33#issuecomment-1731776524)   
 There could be a section in the `inventory.json` that lists the zip files.
 In case of migration, there's need for rewriting the `inventory.json` file.
@@ -113,19 +114,16 @@ Validation equivalent to the `sidecar validation` above would mean to ignore
 `manifest`, `version` and `fixity` sections and use the `zip-manifest` section instead.
 
 
-### Checksum-Focus (like `manifest`)
+### Checksum Focus (Like `manifest`)
 > [!NOTE]
 > This is easiest to use, since it's similar to the existing `manifest` section.
 
 ```json
 ...
-"zip-manifest": {
-    "14602dae3c3aac15a9b0eb49a26b867a6436de8b1d20073c038d7fa60dcb28b32f2c8705fea38b110826364a543cb89e3fdc484ffcb6b255ea4c357b632a3609": [ 
-        "v1/content.zip"
-    ],
-    "1d497009f3aabd230bcd055ef09fd180e63e330c47f4c1afdfc36172e5421a220b78e3e3ce30c9ae533c516accfa8976fd3f1198bd15ff79373d5fe87fc64cd2": [
-        "v1/content.z01",
-    ]
+"zipManifest": {
+  "14602d...609": [ "v1/content.zip" ],
+  "1d4970...cd2": [ "v1/content.z01" ],
+  "1e26aa...09d": [ "v2/content.zip" ]
 }
 ...
 ```
@@ -133,31 +131,25 @@ Validation equivalent to the `sidecar validation` above would mean to ignore
 ### Version Focus
 ```json
 ...
-"zip-manifest": {
-    "v1": {
-            "14602dae3c3aac15a9b0eb49a26b867a6436de8b1d20073c038d7fa60dcb28b32f2c8705fea38b110826364a543cb89e3fdc484ffcb6b255ea4c357b632a3609": [ 
-                "content.zip"
-            ],
-            "1d497009f3aabd230bcd055ef09fd180e63e330c47f4c1afdfc36172e5421a220b78e3e3ce30c9ae533c516accfa8976fd3f1198bd15ff79373d5fe87fc64cd2": [
-                "content.z01",
-            ]
-        },
-    "v2": {
-            "1e26aa6a40bf18236744263777db7e2da7792818063c4895c30c384ee02878e56b1cb0cf94cc6c6ccf0d08331b166967567ca039a17421f19db006fac799309d": [ 
-                "content.zip"
-            ]
-        }
-    }
+"zipManifest": {
+  "v1": {
+    "14602d...609": [ "content.zip" ],
+    "1d4970...cd2": [ "content.z01" ]
+  },
+  "v2": {
+    "1e26aa...09d": [ "content.zip" ]
+  }
 }
 ...
 ```
 
-### File-Focus
+### File Focus
 ```json
 ...
-"zip-manifest": {
-    "v1/content.zip": "14602dae3c3aac15a9b0eb49a26b867a6436de8b1d20073c038d7fa60dcb28b32f2c8705fea38b110826364a543cb89e3fdc484ffcb6b255ea4c357b632a3609",
-    "v1/content.z01": "1d497009f3aabd230bcd055ef09fd180e63e330c47f4c1afdfc36172e5421a220b78e3e3ce30c9ae533c516accfa8976fd3f1198bd15ff79373d5fe87fc64cd2"
+"zipManifest": {
+  "v1/content.zip": "14602d...609",
+  "v1/content.z01": "1d4970...cd2",
+  "v2/content.zip": "1e26aa...09d"
 }
 ...
 ```
