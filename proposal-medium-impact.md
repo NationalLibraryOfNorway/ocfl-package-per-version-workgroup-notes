@@ -24,18 +24,21 @@ A tentative json structure of this block can be as follows:
 ```json
 {
   "archiveInformation": {
-    "zip": {
-      "version": "6.3.3",
+    "archiveFormat": "zip",
+    "version": "6.3.3",
+    "packingInformation" {
       "packingTool": "zip",
       "packingToolVersion": "3.0",
-      "packingCommand" : "zip -r -6 -q -o content.zip content",
+      "packingCommands" : [ "zip -r -6 -q -o content.zip content" ]
+    },
+    "unpackingInformation": {
       "unpackingTool": "unzip",
       "unpackingToolVersion": "6.0",
-      "unpackingCommand" : "unzip -q content.zip",
-      "compression" : {
-        "algorithm": "deflate",
-        "level": 6
-      }
+      "unpackingCommands" : [ "unzip -q content.zip" ]
+    },
+    "compression" : {
+      "algorithm": "deflate",
+      "level": 6
     }
   }
 }
@@ -43,7 +46,7 @@ A tentative json structure of this block can be as follows:
 
 Note that the names of variables, structure, etc. are subject to change and are provided here as an example for further discussion.
 
-There are two ways of validating the content of the ocfl object:
+There are two ways of validating the content of the OCFL object:
 * `full validation` via validating `inventory.json` as normal, but also using `inventory-unpacked.json` to check zip file contents
 * `sidecar validation` by validating `inventory.json` only, hoping that container was packed correctly
 
@@ -56,28 +59,28 @@ So for example the following `inventory.json`:
   ...
   "fixity": {
     "md5": {
-      "184f84e28cbe75e050e9c25ea7f2e939": [ "v1/content/checksums.md5" ],
-      "c289c8ccd4bab6e385f5afdd89b5bda2": [ "v1/content/preservation/image.png" ],
+      "184f84e28cbe75e050e9c25ea7f2e939": [ "v1/content/checksum.md5" ],
+      "c289c8ccd4bab6e385f5afdd89b5bda2": [ "v1/content/preservation/image.tiff" ],
       "d41d8cd98f00b204e9800998ecf8427e": [ "v1/content/view/image.jpg" ],
-      "66709b068a2faead97113559db78ccd4": [ "v2/content/checksums.md5" ],
-      "a6357c99ecc5752931e133227581e914": [ "v2/content/preservation/new-image.png" ],
+      "66709b068a2faead97113559db78ccd4": [ "v2/content/checksum.md5" ],
+      "a6357c99ecc5752931e133227581e914": [ "v2/content/preservation/new-image.tiff" ],
       "b9c7ccc6154974288132b63c15db8d27": [ "v2/content/view/new-image.jpg" ]
     }
   }
   "manifest": {
-    "cf83e1...a3e": [ "v1/content/checksums.md5" ],
-    "f15428...83f": [ "v1/content/preservation/image.png" ],
+    "cf83e1...a3e": [ "v1/content/checksum.md5" ],
+    "f15428...83f": [ "v1/content/preservation/image.tiff" ],
     "85f2b0...007": [ "v1/content/view/image.jpg" ],
-    "d66d80...8bd": [ "v2/content/checksums.md5" ],
-    "2b0ff8...620": [ "v2/content/preservation/new-image.png" ],
+    "d66d80...8bd": [ "v2/content/checksum.md5" ],
+    "2b0ff8...620": [ "v2/content/preservation/new-image.tiff" ],
     "921d36...877": [ "v2/content/view/new-image.jpg" ]
   },
   "versions": {
     "v1": {
       ...
       "state": {
-        "cf83e1...a3e": [ "checksums.md5" ],
-        "f15428...83f": [ "preservation/image.png" ],
+        "cf83e1...a3e": [ "checksum.md5" ],
+        "f15428...83f": [ "preservation/image.tiff" ],
         "85f2b0...007": [ "view/image.jpg" ]
       },
       ...
@@ -85,10 +88,8 @@ So for example the following `inventory.json`:
     "v2": {
       ...
       "state": {
-        "d66d80...8bd": [ "checksums.md5" ],
-        "f15428...83f": [ "preservation/image.png" ],
-        "2b0ff8...620": [ "preservation/new-image.png" ],
-        "85f2b0...007": [ "view/image.jpg" ],
+        "d66d80...8bd": [ "checksum.md5" ],
+        "2b0ff8...620": [ "preservation/new-image.tiff" ],
         "921d36...877": [ "view/new-image.jpg" ]
       },
       ...
@@ -106,12 +107,16 @@ will be changed to:
   "fixity": {
     "md5": {
       "da39a3ee5e6b4b0d3255bfef95601890": [ "v1/content.zip" ],
-      "5f5afdd89b5bda2d97113559db78ccd4": [ "v2/content.zip" ]
+      "5f5afdd89b5bda2d97113559db78ccd4": [ "v2/content.zip" ],
+      "ada2d97113df234b495601b053fa3e33": [ "v2/content.z01" ],
+      "ea44b4a395601eb0bb4b07da2d971136": [ "v2/content.z02" ]
     }
   }
   "manifest": {
     "de823a...acc": [ "v1/content.zip" ],
-    "080617...40c": [ "v2/content.zip" ]
+    "080617...40c": [ "v2/content.zip" ],
+    "adf234...53f": [ "v2/content.z01" ],
+    "ea443b...76e": [ "v2/content.z02" ]
   },
   "versions": {
     "v1": {
@@ -124,7 +129,9 @@ will be changed to:
     "v2": {
       ...
       "state": {
-        "080617...40c": [ "content.zip" ]
+        "080617...40c": [ "content.zip" ],
+        "adf234...53f": [ "content.z01" ],
+        "ea443b...76e": [ "content.z02" ]
       },
       ...
     }
@@ -145,14 +152,15 @@ In my mind the most likely way this users of this feature would either:
   - Would result in reprocessing whole object, but only when already accessing it for other reasons.
   - Less processing power needed, but more impact on users as retrieval of object would be slower (if migrating on access).
 
-Both of those approaches would result in a mixed collection of objects with and without `inventory-unpacked.json` and packaged versions.
-These approaches could be combined and the user could decide which objects to migrate and when.
+These approaches would result in a mixed collection of objects with and without `inventory-unpacked.json` with and without packaged versions.
+Users could combine these approaches and the user could decide which objects to migrate and when.
 This might also be done in batches, especially if a migration tool is developed.
 
 I don't think many users would reprocess their whole repository to pack all objects at once.
 That would be a rather expensive and error prone project.
 However smaller repositories might want to do that.
 
+## Example File Structure
 ### Single File Container
 Simple case where object content is stored in a single zip file.
 
@@ -164,19 +172,19 @@ Simple case where object content is stored in a single zip file.
 ├── inventory-unpacked.json
 ├── inventory-unpacked.json.sha512
 ├── v1
-│  ├── content.zip
-│  ├── content.zip.sha512
-│  ├── inventory.json
-│  ├── inventory.json.sha512
-│  ├── inventory-unpacked.json
-│  └── inventory-unpacked.json.sha512
+│   ├── content.zip
+│   ├── content.zip.sha512
+│   ├── inventory.json
+│   ├── inventory.json.sha512
+│   ├── inventory-unpacked.json
+│   └── inventory-unpacked.json.sha512
 └── v2
-    ├── content.zip
-    ├── content.zip.sha512
-    ├── inventory.json
-    ├── inventory.json.sha512
-    ├── inventory-unpacked.json
-    └── inventory-unpacked.json.sha512
+     ├── content.zip
+     ├── content.zip.sha512
+     ├── inventory.json
+     ├── inventory.json.sha512
+     ├── inventory-unpacked.json
+     └── inventory-unpacked.json.sha512
 ```
 
 ### Multi Part Zip Container
@@ -195,25 +203,25 @@ Naming conventions of multipart zip files are used.
 ├── inventory-unpacked.json
 ├── inventory-unpacked.json.sha512
 ├── v1
-│  ├── content.zip
-│  ├── content.zip.sha512
-│  ├── content.z01
-│  ├── content.z01.sha512
-│  ├── content.z02
-│  ├── content.z02.sha512
-│  ├── inventory.json
-│  ├── inventory.json.sha512
-│  ├── inventory-unpacked.json
-│  └── inventory-unpacked.json.sha512
+│   ├── content.zip
+│   ├── content.zip.sha512
+│   ├── content.z01
+│   ├── content.z01.sha512
+│   ├── content.z02
+│   ├── content.z02.sha512
+│   ├── inventory.json
+│   ├── inventory.json.sha512
+│   ├── inventory-unpacked.json
+│   └── inventory-unpacked.json.sha512
 └── v2
-    ├── content.zip
-    ├── content.zip.sha512
-    ├── content.z01
-    ├── content.z01.sha512
-    ├── inventory.json
-    ├── inventory.json.sha512
-    ├── inventory-unpacked.json
-    └── inventory-unpacked.json.sha512
+     ├── content.zip
+     ├── content.zip.sha512
+     ├── content.z01
+     ├── content.z01.sha512
+     ├── inventory.json
+     ├── inventory.json.sha512
+     ├── inventory-unpacked.json
+     └── inventory-unpacked.json.sha512
 ```
  
 ### Multi-Zip Content
@@ -228,23 +236,23 @@ The zip file numbering follows the same rules as the version folder numbering.
 ├── inventory-unpacked.json
 ├── inventory-unpacked.json.sha512
 ├── v1
-│  ├── content.1.zip
-│  ├── content.1.zip.sha512
-│  ├── content.2.zip
-│  ├── content.2.zip.sha512
-│  ├── content.3.zip
-│  ├── content.3.zip.sha512
-│  ├── inventory.json
-│  ├── inventory.json.sha512
-│  ├── inventory-unpacked.json
-│  └── inventory-unpacked.json.sha512
+│   ├── content.1.zip
+│   ├── content.1.zip.sha512
+│   ├── content.2.zip
+│   ├── content.2.zip.sha512
+│   ├── content.3.zip
+│   ├── content.3.zip.sha512
+│   ├── inventory.json
+│   ├── inventory.json.sha512
+│   ├── inventory-unpacked.json
+│   └── inventory-unpacked.json.sha512
 └── v2
-    ├── content.1.zip
-    ├── content.1.zip.sha512
-    ├── content.2.zip
-    ├── content.2.zip.sha512
-    ├── inventory.json
-    ├── inventory.json.sha512
-    ├── inventory-unpacked.json
-    └── inventory-unpacked.json.sha512
+     ├── content.1.zip
+     ├── content.1.zip.sha512
+     ├── content.2.zip
+     ├── content.2.zip.sha512
+     ├── inventory.json
+     ├── inventory.json.sha512
+     ├── inventory-unpacked.json
+     └── inventory-unpacked.json.sha512
 ```
