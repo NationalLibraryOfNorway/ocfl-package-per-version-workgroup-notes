@@ -110,10 +110,51 @@ Using both of those blocks would theoretically allow users to create mixed versi
 }
 ```
 
-### `archiveManifest` Block
+### The `archiveManifest` Block
 The name of the block is subject to change, could be `containerManifest`, `packageManifest`, etc.
 
-### `archiveInformation` Block
+We were thinking about implementing information about which files are located in which container in multipart archives.
+An idea we had was to format these blocks in following manner:
+
+Single archive:
+```json
+{
+  "state": {
+    "cf83e1...a3e": [ "checksum.md5" ],
+    "f15428...83f": [ "preservation/image.tiff" ],
+    "85f2b0...007": [ "view/image.jpg" ]
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "content.zip" ]
+  },
+  "archiveContents": {
+    "fda345...34a": [ "cf83e1...a3e", "f15428...83f", "85f2b0...007" ]
+  }
+}
+```
+
+Multiple archives:
+```json
+{      
+  "state": {
+    "d66d80...8bd": [ "checksum.md5" ],
+    "2b0ff8...620": [ "preservation/large-image.tiff" ],
+    "921d36...877": [ "view/large-image.jpg" ]
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "content.zip" ],
+    "adf234...53f": [ "content.z01" ],
+    "ea443b...76e": [ "content.z02" ]
+  },
+  "archiveContents": {
+    "fda345...34a": [ "d66d80...8bd" ],
+    "adf234...53f": [ "2b0ff8...620" ],
+    "ea443b...76e": [ "921d36...877" ]
+  }
+}
+```
+
+### The `archiveInformation` Block
 The name of the block is subject to change, could be `containerInformation`, `packageInformation`, etc.
 This block contains information about the archive file.
 
