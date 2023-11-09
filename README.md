@@ -6,11 +6,12 @@ Repository for notes, ideas, etc, from the the workgroup dedicated to introducin
 * [Single VS Multipart Containers questions](single-vs-multipart-containers-questions.md)
 * [What `archiveInformation` Should Contain?](archive-information-block.md)
 * [How To Structure Archive Manfiest?](archive-manifest-block.md)
+* [How Can Containers Limit the Number of Small Files?](limit-number-of-small-files.md)
 
 ## Proposal
-* [Low Impact](proposal-low-impact.md)
-* [Medium Impact](proposal-medium-impact.md)
-* [High Impact](proposal-high-impact.md)
+* [Low Impact Proposal](proposal-low-impact.md): a sidecar file for each container
+* [Medium Impact Proposal](proposal-medium-impact.md): add an `inventory-unpacked.json` file to each container
+* [High Impact Proposal](proposal-high-impact.md): add new blocks to `inventory.json` file
 
 ## Motivation
 [The Oxford Common File Layout (OCFL)](https://github.com/OCFL/spec "OCFL spec repository on GitHub") offers a good way of organizing files with focus on versioning.
@@ -21,6 +22,6 @@ To further discuss and develop this idea this working group has been formed as w
 ## Workgroup Members
 Currently the workgroup consists of:
 
-- [Jürgen Enge](https://www.linkedin.com/in/j%C3%BCrgen-enge-287873)
-- [Thomas Edvardsen](https://www.linkedin.com/in/thomasedvardsen)
-- [Daniel Aaron Salwerowicz](https://www.linkedin.com/in/salwerowicz)
+- [Jürgen Enge, University of Bazel](https://www.linkedin.com/in/j%C3%BCrgen-enge-287873)
+- [Thomas Edvardsen, National Library of Norway](https://www.linkedin.com/in/thomasedvardsen)
+- [Daniel Aaron Salwerowicz, National Library of Norway](https://www.linkedin.com/in/salwerowicz)
