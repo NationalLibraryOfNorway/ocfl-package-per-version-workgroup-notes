@@ -5,8 +5,28 @@
 > All of them refer to either packages of zip, tar, 7zip or other similar formats.
 > By default the term container is used, and it refers to an uncompressed container.
 
-## Which Format Should the Standard Allow?
-It's a good idea to allow multiple formats. 
+1. [Basic Questions Regarding Containerized OCFL Versions](#basic-questions-regarding-containerized-ocfl-versions)
+   1. [How Many Formats Should the Standard Allow?](#how-many-formats-should-the-standard-allow)
+      1. [One Format](#one-format)
+      1. [Multiple Formats](#multiple-formats)
+      1. [Any Format](#any-format)
+   1. [Should The Standard Allow Multipart Containers Per Version?](#should-the-standard-allow-multipart-containers-per-version)
+   1. [Should The Standard Allow Encrypted Containers?](#should-the-standard-allow-encrypted-containers)
+   1. [Should The Standard Allow Compression?](#should-the-standard-allow-compression)
+   1. [Should The Standard Allow For Mixed Versions?](#should-the-standard-allow-for-mixed-versions)
+   1. [What Container File Formats Should The Standard Allow?](#what-container-file-formats-should-the-standard-allow)
+      1. [ZIP](#zip)
+         1. [Pros](#pros)
+         1. [Cons](#cons)
+      1. [TAR](#tar)
+         1. [Pros](#pros-1)
+         1. [Cons](#cons-1)
+      1. [7z](#7z)
+         1. [Pros](#pros-2)
+         1. [Cons](#cons-2)
+
+## How Many Formats Should the Standard Allow?
+It's a good idea to allow multiple formats.
 But this will make it more difficult to implement software, which can deal with all formats.
 Therefore in case where we have to choose one format over the other we should consider the following criteria:
 - How well supported is the format?
@@ -46,7 +66,7 @@ However that would provide most freedom to the users.
 For very large objects, it might be useful to split the container into multiple files.
 In addition it could help with transfer of large objects as it might be easier to transfer multiple smaller files than one large file.
 For some institutions, it may be desirable to package files according to type of content - for example metadata, preservation files, access files, etc. 
-This makes it possible to extract a small file, and not an entire movie of several terabytes to extract only the metadata.
+This makes it possible to extract a container with only metadata, while avoiding touching a large container.
 
 Since there are quite a bit of questions surrounding that topic, see [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md) for more details.
 
@@ -75,12 +95,12 @@ Would there be any issues with such a solution, either in terms of implementatio
 
 **Recommendation: in-scope for V2.**
 
-Another form of mixed versions would be to have some versions in one container format, while others are in a different format.
+Another form of mixed versions would allow some versions to use one container format, while others use a different format (eg. mixing zip and tar).
 Such a solution would be more complex to implement, and we don't see any benefit or use-case for it.
 
 **Recommendation: out of scope for V2.**
 
-## [File Formats](https://en.wikipedia.org/wiki/List_of_archive_formats)
+## What Container [File Formats](https://en.wikipedia.org/wiki/List_of_archive_formats) Should The Standard Allow?
 
 ### [ZIP](https://en.wikipedia.org/wiki/ZIP_(file_format)) 
 * [ZIP_PK](https://www.loc.gov/preservation/digital/formats/fdd/fdd000354.shtml), ZIP file format (PKWARE)

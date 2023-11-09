@@ -4,6 +4,19 @@ Status: Draft
 
 "Low impact" means that the inventory.json structure is not changed.
 
+1. [Proposal: Low Impact](#proposal-low-impact)
+   1. [Decisions](#decisions)
+   1. [Proposal](#proposal)
+      1. [Migration](#migration)
+   1. [Example File Structure](#example-file-structure)
+      1. [Single File Container](#single-file-container)
+      1. [Multi Part Zip Container](#multi-part-zip-container)
+      1. [Multi-Zip Content](#multi-zip-content)
+   1. [Option With `inventory.json` Section](#option-with-inventoryjson-section)
+      1. [Checksum Focus (Like `manifest`)](#checksum-focus-like-manifest)
+      1. [Version Focus](#version-focus)
+      1. [File Focus](#file-focus)
+
 ## Decisions
 * [Format](format-questions.md): ZIP
 * [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): Both

@@ -4,9 +4,25 @@ Status: Draft
 
 "High impact" means that the `inventory.json` structure is changed, so the existing tools would break if they were not updated.
 
+1. [Proposal: High Impact](#proposal-high-impact)
+   1. [Decisions](#decisions)
+   1. [Proposal](#proposal)
+      1. [The `archiveManifest` Block](#the-archivemanifest-block)
+         1. [Add an `archiveContents` Block](#add-an-archivecontents-block)
+         1. [Restructure `state` and `archiveManifest` Blocks](#restructure-state-and-archivemanifest-blocks)
+         1. [Proposal Comparison](#proposal-comparison)
+      1. [The `archiveInformation` Block](#the-archiveinformation-block)
+      1. [Validation](#validation)
+      1. [Problems With The Proposal](#problems-with-the-proposal)
+   1. [Migration](#migration)
+   1. [Example File Structure](#example-file-structure)
+      1. [Single File Container](#single-file-container)
+      1. [Multi Part Containers](#multi-part-containers)
+      1. [Mixed Content](#mixed-content)
+
 ## Decisions
 * [Format](format-questions.md): both ZIP and TAR
-* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): Both
+* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): both single, binary split, and independently split containers
 
 
 ## Proposal
