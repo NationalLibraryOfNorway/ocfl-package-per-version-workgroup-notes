@@ -21,7 +21,7 @@ Status: Draft
       1. [Mixed Content](#mixed-content)
 
 ## Decisions
-* [Format](format-questions.md): both ZIP and TAR
+* [Container Format](container-and-format-questions.md): both ZIP and TAR
 * [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): both single, binary split, and independent containers
 
 

@@ -18,7 +18,7 @@ Status: Draft
       1. [File Focus](#file-focus)
 
 ## Decisions
-* [Format](format-questions.md): ZIP
+* [Container Format](container-and-format-questions.md): ZIP
 * [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): both single, and multipart containers
 
 ## Proposal

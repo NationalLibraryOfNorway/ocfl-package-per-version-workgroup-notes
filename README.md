@@ -1,8 +1,11 @@
 # OCFL Package Per Version Workgroup Notes
 Repository for notes, ideas, etc, from the the workgroup dedicated to introducing package per version model into OCFL specification.
 
-* [File Formats](format-questions.md)
-* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md)
+## General Questions
+* [Container And Format Questions](container-and-format-questions.md)
+* [Single VS Multipart Containers questions](single-vs-multipart-containers-questions.md)
+* [What `archiveInformation` Should Contain?](archive-information-block.md)
+* [How To Structure Archive Manfiest?](archive-manifest-block.md)
 
 ## Proposal
 * [Low Impact](proposal-low-impact.md)
