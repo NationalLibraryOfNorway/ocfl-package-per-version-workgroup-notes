@@ -24,7 +24,6 @@ Status: Draft
 * [Container Format](container-and-format-questions.md): both ZIP and TAR
 * [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): both single, binary split, and independent containers
 
-
 ## Proposal
 Instead of an additional `inventory-unpacked.json` file, the `inventory.json` is extended with a new `archiveManifest` block in version block.
 This block works like a manifest for the version, while the existing `state` block describes the state of the object after unpacking the archive.

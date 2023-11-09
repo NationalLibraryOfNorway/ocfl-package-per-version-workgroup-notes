@@ -5,11 +5,11 @@ The `archiveInformation` block will contain information about the container form
 The goal of this block is to provide all necessary information to be able to understand, validate, and unpack the archive files.
 
 ## How Should the `archiveInformation` Block Be Structured?
-A proposed JSON structure of this block is shown below:
-
 > [!NOTE]
 > The names of variables, structure, etc. are subject to change and are provided here as an example.
 > We are open for further discussion, open an issue if you wish to propose changes.
+
+A proposed JSON structure of this block is shown below:
 
 ```json
 {
