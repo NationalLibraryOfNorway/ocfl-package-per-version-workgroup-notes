@@ -19,7 +19,7 @@ Status: Draft
 
 ## Decisions
 * [Format](format-questions.md): ZIP
-* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): Both
+* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): both single, and multipart containers
 
 ## Proposal
 Replace `content` folder with `content.zip` container.

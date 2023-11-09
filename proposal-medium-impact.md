@@ -18,7 +18,7 @@ Instead an additional `inventory-unpacked.json` is used to describe the object a
 
 ## Decisions
 * [Format](format-questions.md): both ZIP and TAR
-* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): both single, binary split, and independently split containers
+* [Single VS Multipart containers questions](single-vs-multipart-containers-questions.md): both single, binary split, and independent containers
 
 ## Proposal
 Replace `content` folder with `content.zip` (or `container.tar`, for simplicity only `.zip` extension is used but they are interchangeable) container.
