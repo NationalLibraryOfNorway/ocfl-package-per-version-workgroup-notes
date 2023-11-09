@@ -27,7 +27,7 @@ Supporting multipart containers per version can be done in different ways:
 
 * Independently split containers
   * Every sub-containers contains a fully usable container which can be used or packaged independently
-  * Can be split logically (e.g. by similar content) or physically (e.g. by size)
+  * Can be split logically (e.g. by folders) or physically (e.g. by size)
 * Binary container split 
   * Container is split into sub-containers at binary level and must be concatenated to get a usable container
   * Can only be split by size
