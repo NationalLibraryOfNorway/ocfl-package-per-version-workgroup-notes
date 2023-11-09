@@ -7,11 +7,11 @@ Status: Draft
 1. [Proposal: High Impact](#proposal-high-impact)
    1. [Decisions](#decisions)
    1. [Proposal](#proposal)
+      1. [The `archiveInformation` Block](#the-archiveinformation-block)
       1. [The `archiveManifest` Block](#the-archivemanifest-block)
          1. [Add an `archiveContents` Block](#add-an-archivecontents-block)
          1. [Restructure `state` and `archiveManifest` Blocks](#restructure-state-and-archivemanifest-blocks)
          1. [Proposal Comparison](#proposal-comparison)
-      1. [The `archiveInformation` Block](#the-archiveinformation-block)
       1. [Validation](#validation)
       1. [Problems With The Proposal](#problems-with-the-proposal)
    1. [Migration](#migration)
@@ -126,6 +126,9 @@ Using both of those blocks would theoretically allow users to create mixed versi
 }
 ```
 
+### The `archiveInformation` Block
+See the [document about `archiveInformation` block for more information about it](archive-information-block.md) for more details.
+
 ### The `archiveManifest` Block
 The name of the block is subject to change, could be `containerManifest`, `packageManifest`, etc.
 
@@ -228,48 +231,6 @@ The second proposal tries to make the `state` block more consistent with the way
 Additionally it avoids duplicating information.
 However it would require the `archiveManifest` block to be present in all cases.
 This can be a problem if contents of the archives are not known, or when same file is spread over several archives.
-
-### The `archiveInformation` Block
-The name of the block is subject to change, could be `containerInformation`, `packageInformation`, etc.
-This block contains information about the archive file.
-
-```json
-"archiveInformation": {
-  "archiveFormat": "zip",
-  "version": "6.3.3",
-  "packingInformation": {
-    "packingTool": "zip",
-    "packingToolVersion": "3.0",
-    "packingCommands" : [ "zip -r -6 -q -o content.zip content" ]
-  },
-  "unpackingInformation": {
-    "unpackingTool": "unzip",
-    "unpackingToolVersion": "6.0",
-    "unpackingCommands" : [ "unzip -q content.zip" ]
-  },
-  "compression" : {
-    "algorithm": "deflate",
-    "level": 6
-  }
-}
-```
-
-Proposed contents:
-- `archiveFormat`: either `zip` or `tar`
-- `version`: version of the archive format
-- `packingInformation`: information about the tool that packed the archive
-  - `packingTool`: name of the tool that packed the archive
-  - `packingToolVersion`: version of the tool that packed the archive
-  - `packingCommands`: list of commands that were used to pack the archive, using a list here as you can use multiple commands to pack the archive
-- `unpackingInformation`: information about the known tool that can be used to unpack the archive
-  - `unpackingTool`: name of the tool to unpack the archive
-  - `unpackingToolVersion`: version of the tool to unpack the archive
-  - `unpackingCommands`: list of commands to use to unpack the archive, using a list here as you can use multiple commands to unpack the archive
-- `compression`: information talking about the compression, not present if compression was not used
-  - `algorithm`: name of the compression algorithm used, if applicable
-  - `level`: level of compression used, if applicable
-
-All of those elements are subject to change as the proposal is discussed.
 
 ### Validation
 There are two ways of validating the content of the OCFL object:
