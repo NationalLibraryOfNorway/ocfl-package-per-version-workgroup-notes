@@ -45,11 +45,15 @@ The example of an `archiveManifest` with a several archives is shown below:
 }
 ```
 
-### How to Include Information About Which Files Are Located in Which Container?
+> [!IMPORTANT]
+> As an alternative the contents of `state` and `archiveManifest` blocks could be swapped, if people think that would be more intuitive.
+> But based on comment on [Use-Case 33](https://github.com/OCFL/Use-Cases/issues/33#issuecomment-1731776524) we went with the structure shown above.
+
+## How to Include Information About Which Files Are Located in Which Container?
 We were thinking about implementing information about which files are located in which container in multipart archives.
 We have two possible proposals for solving that issue, both of which are described below.
 
-#### Add an `archiveContents` Block
+### Add an `archiveContents` Block (Proposition 1)
 Add an additional block that would contain information about which files are in which archive.
 This would be conveyed by using the same identifiers (SHA-512 hashes) as in the `state` and `archiveManifest` blocks.
 
@@ -79,9 +83,9 @@ Multiple archives:
     "921d36...877": [ "view/large-image.jpg" ]
   },
   "archiveManifest": {
-    "fda345...34a": [ "content.zip" ],
-    "adf234...53f": [ "content.z01" ],
-    "ea443b...76e": [ "content.z02" ]
+    "fda345...34a": [ "checksums.zip" ],
+    "adf234...53f": [ "preservation.zip" ],
+    "ea443b...76e": [ "view.zips" ]
   },
   "archiveContents": {
     "fda345...34a": [ "d66d80...8bd" ],
@@ -91,23 +95,23 @@ Multiple archives:
 }
 ```
 
-#### Restructure `state` and `archiveManifest` Blocks
-Another proposal is to change the way `state` and `archiveManifest` block are used.
-In this case the `state` block would refer only to the archives in the version folder.
-The `archiveManifest` block would contain information about which files are in which archive.
+### Restructure `state` and `archiveManifest` Blocks (Proposition 2)
+Another proposal is to change the way `state` and `archiveManifest` block are structured and used.
+In this case the `state` block would contain sub-objects, one for each archive file, and inside them there would be a listing of files in container.
+The `archiveManifest` block would list archives with their identifiers, and those would be used as identifiers of sub-objects in `state` block.
 
 Single archive:
 ```json
 {
   "state": {
-    "fda345...34a": [ "content.zip" ]
-  },
-  "archiveManifest": {
     "fda345...34a": {
       "cf83e1...a3e": [ "checksum.md5" ],
       "f15428...83f": [ "preservation/image.tiff" ],
       "85f2b0...007": [ "view/image.jpg" ]
     }
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "content.zip" ]
   }
 }
 ```
@@ -116,11 +120,6 @@ Multiple archives:
 ```json
 {      
   "state": {
-    "fda345...34a": [ "content.zip" ],
-    "adf234...53f": [ "content.z01" ],
-    "ea443b...76e": [ "content.z02" ]
-  },
-  "archiveManifest": {
     "fda345...34a": {
       "d66d80...8bd": [ "checksum.md5" ]
     },
@@ -130,6 +129,70 @@ Multiple archives:
     "ea443b...76e": {
       "921d36...877": [ "view/large-image.jpg" ]
     }
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "checksums.zip" ],
+    "adf234...53f": [ "preservation.zip" ],
+    "ea443b...76e": [ "view.zips" ]
   }
 }
 ```
+
+**Recommendation: Proposal 2 seems like the better option to us, as it avoids duplication, and seems to be most consistent with current inventory.json structure.**
+
+## What About Cases Where File Locations Are Not Known?
+In some cases it might not be possible to know which files are located in which archive.
+That's usually in case of binary split archives, where the archive is split into several parts.
+In that case the `archiveManifest` block would list all files as belonging to the main archive, for example:
+
+**Proposition 1:**
+```json
+{      
+  "state": {
+    "d66d80...8bd": [ "checksum.md5" ],
+    "2b0ff8...620": [ "preservation/large-image.tiff" ],
+    "921d36...877": [ "view/large-image.jpg" ]
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "content.zip" ],
+    "adf234...53f": [ "content.z01" ],
+    "ea443b...76e": [ "content.z02" ]
+  },
+  "archiveContents": {
+    "fda345...34a": [ "d66d80...8bd", "2b0ff8...620", "921d36...877" ]
+  }
+}
+```
+
+**Proposition 2:**
+
+```json
+{      
+  "state": {
+    "fda345...34a": {
+      "cf83e1...a3e": [ "checksum.md5" ],
+      "f15428...83f": [ "preservation/image.tiff" ],
+      "85f2b0...007": [ "view/image.jpg" ]
+    }
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "content.zip" ],
+    "adf234...53f": [ "content.z01" ],
+    "ea443b...76e": [ "content.z02" ]
+  }
+}
+```
+
+This proposition would pretty much treat the binary split archives the same was as single archive files.
+
+**Recommendation: We think that this is the best way to handle this case.**
+
+## What About Cases Where One File Is Located In Several Archives?
+We don't think this would happen at all, or at least very often.
+In proposal 1 users could simply add the file identifier in several lists in `archiveContents` block.
+In proposal 2 users could list the file in several sub-objects in `state` block.
+
+Alternatively it can be decided that file is listed in only one archive.
+
+**Recommendation: We think that we need more information to make a definitive decision on that problem.**
+**However we think that the best solution would be to allow listing files in several archives as discussed above.**
