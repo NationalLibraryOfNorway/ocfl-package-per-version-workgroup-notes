@@ -1,5 +1,13 @@
 # What `archiveInformation` Block Should Contain, And How To Format It?
 
+1. [What `archiveInformation` Block Should Contain, And How To Format It?](#what-archiveinformation-block-should-contain-and-how-to-format-it)
+   1. [What is The Purpose of the `archiveInformation` Block?](#what-is-the-purpose-of-the-archiveinformation-block)
+   1. [How Should the `archiveInformation` Block Be Structured?](#how-should-the-archiveinformation-block-be-structured)
+      1. [Field Explanation](#field-explanation)
+      1. [Simplification Suggestions](#simplification-suggestions)
+      1. [Additional Fields That Could Be Added](#additional-fields-that-could-be-added)
+   1. [Where Should the `archiveInformation` Block Be Located?](#where-should-the-archiveinformation-block-be-located)
+
 ## What is The Purpose of the `archiveInformation` Block?
 The `archiveInformation` block will contain information about the container format, version, what tool packed it, if it's compressed, etc.
 The goal of this block is to provide all necessary information to be able to understand, validate, and unpack the archive files.

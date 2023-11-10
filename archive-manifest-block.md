@@ -1,5 +1,14 @@
 # How To Implement Archive Manifest Information?
 
+1. [How To Implement Archive Manifest Information?](#how-to-implement-archive-manifest-information)
+   1. [What is The Purpose of the `archiveManifest` Block?](#what-is-the-purpose-of-the-archivemanifest-block)
+   1. [How Should the `archiveManifest` Block Be Structured](#how-should-the-archivemanifest-block-be-structured)
+   1. [How to Include Information About Which Files Are Located in Which Container?](#how-to-include-information-about-which-files-are-located-in-which-container)
+      1. [Add an `archiveContents` Block (Proposition 1)](#add-an-archivecontents-block-proposition-1)
+      1. [Restructure `state` and `archiveManifest` Blocks (Proposition 2)](#restructure-state-and-archivemanifest-blocks-proposition-2)
+   1. [What About Cases Where File Locations Are Not Known?](#what-about-cases-where-file-locations-are-not-known)
+   1. [What About Cases Where One File Is Located In Several Archives?](#what-about-cases-where-one-file-is-located-in-several-archives)
+
 ## What is The Purpose of the `archiveManifest` Block?
 The `archiveManifest` block will contain information about the archives that contain the files of the version.
 It will also indicate that the version has been packed into an archive
