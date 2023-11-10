@@ -9,9 +9,7 @@ Status: Draft
    1. [Proposal](#proposal)
       1. [The `archiveInformation` Block](#the-archiveinformation-block)
       1. [The `archiveManifest` Block](#the-archivemanifest-block)
-         1. [Add an `archiveContents` Block](#add-an-archivecontents-block)
-         1. [Restructure `state` and `archiveManifest` Blocks](#restructure-state-and-archivemanifest-blocks)
-         1. [Proposal Comparison](#proposal-comparison)
+      1. [Questions About `fixity` and `manifest` Blocks](#questions-about-fixity-and-manifest-blocks)
       1. [Validation](#validation)
       1. [Problems With The Proposal](#problems-with-the-proposal)
    1. [Migration](#migration)
@@ -38,77 +36,66 @@ Using both of those blocks would theoretically allow users to create mixed versi
   ...  
   "fixity": {
     "md5": {
-      "184f84e28cbe75e050e9c25ea7f2e939": [ "v1/content.zip" ],
-      "c289c8ccd4bab6e385f5afdd89b5bda2": [ "v2/content.zip" ],
-      "d41d8cd98f00b204e9800998ecf8427e": [ "v2/content.z01" ],
-      "66709b068a2faead97113559db78ccd4": [ "v2/content.z02" ],
+      "8e34ba6c538f91951f1ca51b43d04274": [ "v1/content/checksum.md5" ],
+      "cc37f0b10ae1387c4d7a8fe497440704": [ "v1/content/preservation/image.tiff" ],
+      "d8bbe7df10e99deec69bfac0c2c6604d": [ "v1/content/view/image.jpg" ],
+      "934ac782f62006d67d365e5842e069bf": [ "v2/content/checksum.md5" ],
+      "5eda828cd9dde1d4c2ea5af43862b92b": [ "v2/content/preservation/new-image.tiff" ],
+      "1264930d711a18138a670225a8875d1e": [ "v2/content/view/new-image.jpg" ],
       "a6357c99ecc5752931e133227581e914": [ "v3/content/checksum.md5" ],
       "a6357c99ecc5752931e133227581e914": [ "v3/content/preservation/unpacked-image.tiff" ],
       "b9c7ccc6154974288132b63c15db8d27": [ "v3/content/view/unpacked-image.jpg" ]
     }
-  }
+  },
   "manifest": {
     "cf83e1...a3e": [ "v1/content/checksum.md5" ],
     "f15428...83f": [ "v1/content/preservation/image.tiff" ],
     "85f2b0...007": [ "v1/content/view/image.jpg" ],
     "d66d80...8bd": [ "v2/content/checksum.md5" ],
     "2b0ff8...620": [ "v2/content/preservation/new-image.tiff" ],
-    "921d36...877": [ "v2/content/view/new-image.jpg" ]
+    "921d36...877": [ "v2/content/view/new-image.jpg" ],
+    "d66d80...8bd": [ "v3/content/checksum.md5" ],
+    "2b0ff8...620": [ "v3/content/preservation/unpacked-image.tiff" ],
+    "921d36...877": [ "v3/content/view/unpacked-image.jpg" ]
+  },
+  "archiveInformation": {
+    "archiveFormat": "zip",
+    "version": "6.3.3",
+    "packingInformation": {
+      "packingTool": "zip",
+      "packingToolVersion": "3.0"
+    },
+    "unpackingInformation": {
+      "unpackingTool": "unzip",
+      "unpackingToolVersion": "6.0"
+    }
   },
   "versions": {
     "v1": {
       "state": {
-        "cf83e1...a3e": [ "checksum.md5" ],
-        "f15428...83f": [ "preservation/image.tiff" ],
-        "85f2b0...007": [ "view/image.jpg" ]
+        "2462fa...12b": {
+          "cf83e1...a3e": [ "checksum.md5" ],
+          "f15428...83f": [ "preservation/image.tiff" ],
+          "85f2b0...007": [ "view/image.jpg" ]
+        }
       },
       "archiveManifest": {
-        "fda345...34a": [ "content.zip" ]
-      },
-      "archiveInformation": {
-        "archiveFormat": "zip",
-        "version": "6.3.3",
-        "packingInformation": {
-          "packingTool": "zip",
-          "packingToolVersion": "3.0",
-          "packingCommands" : [ "zip -r -6 -q -o content.zip content" ]
-        },
-        "unpackingInformation": {
-          "unpackingTool": "unzip",
-          "unpackingToolVersion": "6.0",
-          "unpackingCommands" : [ "unzip -q content.zip" ]
-        },
-        "compression" : {
-          "algorithm": "deflate",
-          "level": 6
-        }
+        "2462fa...12b": [ "content.zip" ]
       }
       ...
     },
     "v2": {
       "state": {
-        "d66d80...8bd": [ "checksum.md5" ],
-        "2b0ff8...620": [ "preservation/large-image.tiff" ],
-        "921d36...877": [ "view/large-image.jpg" ]
+        "fda345...34a": {
+          "d66d80...8bd": [ "checksum.md5" ],
+          "2b0ff8...620": [ "preservation/large-image.tiff" ],
+          "921d36...877": [ "view/large-image.jpg" ]
+        }
       },
       "archiveManifest": {
         "fda345...34a": [ "content.zip" ],
         "adf234...53f": [ "content.z01" ],
         "ea443b...76e": [ "content.z02" ]
-      },
-      "archiveInformation": {
-        "archiveFormat": "zip",
-        "version": "6.3.3",
-        "packingInformation": {
-          "packingTool": "zip",
-          "packingToolVersion": "3.0",
-          "packingCommands" : [ "zip -r -s 10 -q -o content.zip content" ]
-        },
-        "unpackingInformation": {
-          "unpackingTool": "unzip",
-          "unpackingToolVersion": "6.0",
-          "unpackingCommands" : [ "zip -FF content.zip --out merged.zip", "unzip -q merged.zip" ]
-        }
       }
       ...
     },
@@ -126,86 +113,70 @@ Using both of those blocks would theoretically allow users to create mixed versi
 ```
 
 ### The `archiveInformation` Block
-See the [document about `archiveInformation` block for more information about it](archive-information-block.md) for more details.
+See the [document about `archiveInformation` block](archive-information-block.md) for more details.
 
-### The `archiveManifest` Block
-The name of the block is subject to change, could be `containerManifest`, `packageManifest`, etc.
+In summary we propose this structure for the `archiveInformation` block:
 
-We were thinking about implementing information about which files are located in which container in multipart archives.
-We have two possible proposals for solving that issue, both of which are described below.
-
-#### Add an `archiveContents` Block
-Add an additional block that would contain information about which files are in which archive.
-This would be conveyed by using the same identifiers (SHA-512 hashes) as in the `state` and `archiveManifest` blocks.
-
-Single archive:
+_**Most complex solution:**_
 ```json
 {
-  "state": {
-    "cf83e1...a3e": [ "checksum.md5" ],
-    "f15428...83f": [ "preservation/image.tiff" ],
-    "85f2b0...007": [ "view/image.jpg" ]
-  },
-  "archiveManifest": {
-    "fda345...34a": [ "content.zip" ]
-  },
-  "archiveContents": {
-    "fda345...34a": [ "cf83e1...a3e", "f15428...83f", "85f2b0...007" ]
-  }
-}
-```
-
-Multiple archives:
-```json
-{      
-  "state": {
-    "d66d80...8bd": [ "checksum.md5" ],
-    "2b0ff8...620": [ "preservation/large-image.tiff" ],
-    "921d36...877": [ "view/large-image.jpg" ]
-  },
-  "archiveManifest": {
-    "fda345...34a": [ "content.zip" ],
-    "adf234...53f": [ "content.z01" ],
-    "ea443b...76e": [ "content.z02" ]
-  },
-  "archiveContents": {
-    "fda345...34a": [ "d66d80...8bd" ],
-    "adf234...53f": [ "2b0ff8...620" ],
-    "ea443b...76e": [ "921d36...877" ]
-  }
-}
-```
-
-#### Restructure `state` and `archiveManifest` Blocks
-Another proposal is to change the way `state` and `archiveManifest` block are used.
-In this case the `state` block would refer only to the archives in the version folder.
-The `archiveManifest` block would contain information about which files are in which archive.
-
-Single archive:
-```json
-{
-  "state": {
-    "fda345...34a": [ "content.zip" ]
-  },
-  "archiveManifest": {
-    "fda345...34a": {
-      "cf83e1...a3e": [ "checksum.md5" ],
-      "f15428...83f": [ "preservation/image.tiff" ],
-      "85f2b0...007": [ "view/image.jpg" ]
+  "archiveInformation": {
+    "archiveFormat": "zip",
+    "version": "6.3.3",
+    "packingInformation": {
+      "packingTool": "zip",
+      "packingToolVersion": "3.0",
+      "packingCommands" : [ "zip -r -6 -q -o content.zip content" ]
+    },
+    "unpackingInformation": {
+      "unpackingTool": "unzip",
+      "unpackingToolVersion": "6.0",
+      "unpackingCommands" : [ "unzip -q content.zip" ]
+    },
+    "compression" : {
+      "algorithm": "deflate",
+      "level": 6
     }
   }
 }
 ```
 
-Multiple archives:
+_**Most bare bones solution:**_
+```json
+{
+  "archiveInformation": {
+    "archiveFormat": "zip",
+    "version": "6.3.3",
+    "packingTool": "zip",
+    "packingToolVersion": "3.0"
+}
+```
+
+### The `archiveManifest` Block
+See the [document about `archiveManifest` block](archive-manifest-block.md) for more details.
+
+In summary we propose this structure for the `archiveManifest` block:
+
+_**Single archive:**_
+```json
+{
+  "state": {
+    "fda345...34a": {
+      "cf83e1...a3e": [ "checksum.md5" ],
+      "f15428...83f": [ "preservation/image.tiff" ],
+      "85f2b0...007": [ "view/image.jpg" ]
+    }
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "content.zip" ]
+  }
+}
+```
+
+_**Multiple archives:**_
 ```json
 {      
   "state": {
-    "fda345...34a": [ "content.zip" ],
-    "adf234...53f": [ "content.z01" ],
-    "ea443b...76e": [ "content.z02" ]
-  },
-  "archiveManifest": {
     "fda345...34a": {
       "d66d80...8bd": [ "checksum.md5" ]
     },
@@ -215,21 +186,38 @@ Multiple archives:
     "ea443b...76e": {
       "921d36...877": [ "view/large-image.jpg" ]
     }
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "checksums.zip" ],
+    "adf234...53f": [ "preservation.zip" ],
+    "ea443b...76e": [ "view.zips" ]
   }
 }
 ```
 
-#### Proposal Comparison
-First proposal has the benefit of making the `archiveContents` block optional.
-So in cases where the user does not care about the contents of the archives, they can omit the block.
-Alternatively it might be impossible to determine the contents of the archives, for example in case of binary splits.
-It can also handle cases where a single file is spread over multiple archives.
-Negative is the duplication of data, which can be a problem in case of objects with many files.
+_**Binary split archives:**_
+```json
+{      
+  "state": {
+    "fda345...34a": {
+      "cf83e1...a3e": [ "checksum.md5" ],
+      "f15428...83f": [ "preservation/image.tiff" ],
+      "85f2b0...007": [ "view/image.jpg" ]
+    }
+  },
+  "archiveManifest": {
+    "fda345...34a": [ "content.zip" ],
+    "adf234...53f": [ "content.z01" ],
+    "ea443b...76e": [ "content.z02" ]
+  }
+}
+```
 
-The second proposal tries to make the `state` block more consistent with the way it has been used so far.
-Additionally it avoids duplicating information.
-However it would require the `archiveManifest` block to be present in all cases.
-This can be a problem if contents of the archives are not known, or when same file is spread over several archives.
+### Questions About `fixity` and `manifest` Blocks
+The big question is what to do with the `fixity` and `manifest` blocks.
+For now in our proposal both blocks contain only information about unpacked files.
+It might not be the best idea as that does not allow for storing alternative fixities for archives.
+The other option is to either include information about both archives and unpacked files in both blocks or only in fixity block.
 
 ### Validation
 There are two ways of validating the content of the OCFL object:
@@ -238,17 +226,18 @@ There are two ways of validating the content of the OCFL object:
 
 ### Problems With The Proposal
 We have identified following problems with the proposal:
-* There is no easy way to validate the contents of the archive. 
-  * The `inventory.json` can be validated as normal, but the container contents cannot be validated without unpacking the archive.
-* There is no information about which files are in which container in multipart archives.
-* The `state` block has to pretend that the files are unpacked, even though they are not.
-* The `archiveInformation` block repeats a lot of data. 
+* There is no easy way to validate the contents of the archive
+  * The `inventory.json` can be validated as normal, but the container contents cannot be validated without unpacking the archive
+* There is no information about which files are in which container in multipart archives
+* The `state` block has to pretend that the files are unpacked, even though they are not
+* The `archiveInformation` block repeats a lot of data.
   The standard could restrict OCFL objects to only one archive format per object.
   Then this block can be moved out of the `versions` block and into the `inventory.json` itself.
   That would mean that the `packingInformation` and `unpackingInformation` blocks would removed and users would have to unpack archives on their own.
 
 ## Migration
-This proposition has very similar migration suggestion as for [Medium Impact](proposal-medium-impact.md) proposal.
+This proposition has very similar migration suggestions as for [Medium Impact](proposal-medium-impact.md) proposal.
+Here is the migration proposal:
 
 Only create new objects following the new standard, while old are left as is.
 

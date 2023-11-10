@@ -10,6 +10,8 @@ Instead an additional `inventory-unpacked.json` is used to describe the object a
    1. [Decisions](#decisions)
    1. [Proposal](#proposal)
       1. [Changes to `inventory.json` and `inventory-unpacked.json`](#changes-to-inventoryjson-and-inventory-unpackedjson)
+      1. [The `archiveInformation` Block](#the-archiveinformation-block)
+      1. [Validation](#validation)
    1. [Migration](#migration)
    1. [Example File Structure](#example-file-structure)
       1. [Single File Container](#single-file-container)
@@ -27,12 +29,6 @@ Every `content.zip` container has a sidecar with the checksum of the archive fil
 
 In this proposal the `inventory.json` describes only the `content.zip` and is unaware of its contents.
 On the other hand the `inventory-unpacked.json` will exclude `content.zip` and describe OCFL objects after unpacking the archive.
-It will also contain a block of information about the archive.
-See [document about `archiveInformation` block for more information about it](archive-information-block.md) for more details.
-
-There are two ways of validating the content of the OCFL object:
-* `full validation` via validating `inventory.json` as normal, but also using `inventory-unpacked.json` to check container contents
-* `simple validation` by validating `inventory.json` only, hoping that container actually contains what `inventory-unpacked.json` says it does
 
 ### Changes to `inventory.json` and `inventory-unpacked.json`
 In the case of creating new OCFL object, `inventory.json` will simply reference only `content.zip` (or multiple containers) in `fixity`, `manifest`, and `state` blocks.
@@ -54,7 +50,7 @@ Example structure of parts of `inventory-unpacked.json` that refer to files will
       "a6357c99ecc5752931e133227581e914": [ "v2/content/preservation/new-image.tiff" ],
       "b9c7ccc6154974288132b63c15db8d27": [ "v2/content/view/new-image.jpg" ]
     }
-  }
+  },
   "manifest": {
     "cf83e1...a3e": [ "v1/content/checksum.md5" ],
     "f15428...83f": [ "v1/content/preservation/image.tiff" ],
@@ -99,7 +95,7 @@ While the structure of the parts of `inventory.json` that refer to files will lo
       "ada2d97113df234b495601b053fa3e33": [ "v2/content.z01" ],
       "ea44b4a395601eb0bb4b07da2d971136": [ "v2/content.z02" ]
     }
-  }
+  },
   "manifest": {
     "de823a...acc": [ "v1/content.zip" ],
     "080617...40c": [ "v2/content.zip" ],
@@ -135,6 +131,52 @@ But that would allow for low effort implementation of this proposal.
 Of course the better option would be to implement tool which would create `inventory-unpacked.json` for new objects.
 Maybe even allow for migrating old objects to this new format, by containerizing old versions of objects and creating `inventory-unpacked.json` for them.
 That would break the version immutability principle of OCFL, however users could either choose to ignore it or just create new object with same version content but packaged.
+
+### The `archiveInformation` Block
+The `inventory-unpacked.json` will contain a new block called `archiveInformation` which will describe the container file(s).
+See the [document about `archiveInformation` block](archive-information-block.md) for more details.
+
+In summary we propose this structure for the `archiveInformation` block:
+
+_**Most complex solution:**_
+```json
+{
+  "archiveInformation": {
+    "archiveFormat": "zip",
+    "version": "6.3.3",
+    "packingInformation": {
+      "packingTool": "zip",
+      "packingToolVersion": "3.0",
+      "packingCommands" : [ "zip -r -6 -q -o content.zip content" ]
+    },
+    "unpackingInformation": {
+      "unpackingTool": "unzip",
+      "unpackingToolVersion": "6.0",
+      "unpackingCommands" : [ "unzip -q content.zip" ]
+    },
+    "compression" : {
+      "algorithm": "deflate",
+      "level": 6
+    }
+  }
+}
+```
+
+_**Most bare bones solution:**_
+```json
+{
+  "archiveInformation": {
+    "archiveFormat": "zip",
+    "version": "6.3.3",
+    "packingTool": "zip",
+    "packingToolVersion": "3.0"
+}
+```
+
+### Validation
+There are two ways of validating the content of the OCFL object:
+* `full validation` via validating `inventory.json` as normal, but also using `inventory-unpacked.json` to check container contents
+* `simple validation` by validating `inventory.json` only, hoping that container actually contains what `inventory-unpacked.json` says it does
 
 ## Migration
 It might be possible to automate the creation of `inventory-unpacked.json` from `inventory.json`, but it might be easier to allow users to make their own decision on it.

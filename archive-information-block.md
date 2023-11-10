@@ -112,7 +112,7 @@ _**No compression block; `packingCommands` and `unpackingCommands` removed; cont
     "packingTool": "zip",
     "packingToolVersion": "3.0",
     "unpackingTool": "unzip",
-    "unpackingToolVersion": "6.0",
+    "unpackingToolVersion": "6.0"
 }
 ```
 
@@ -124,6 +124,7 @@ _**No compression block; `packingCommands`, `unpackingCommands`, and `unpackingI
     "version": "6.3.3",
     "packingTool": "zip",
     "packingToolVersion": "3.0"
+  }
 }
 ```
 

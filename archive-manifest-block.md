@@ -6,6 +6,7 @@
    1. [How to Include Information About Which Files Are Located in Which Container?](#how-to-include-information-about-which-files-are-located-in-which-container)
       1. [Add an `archiveContents` Block (Proposition 1)](#add-an-archivecontents-block-proposition-1)
       1. [Restructure `state` and `archiveManifest` Blocks (Proposition 2)](#restructure-state-and-archivemanifest-blocks-proposition-2)
+      1. [Proposal Comparison](#proposal-comparison)
    1. [What About Cases Where File Locations Are Not Known?](#what-about-cases-where-file-locations-are-not-known)
    1. [What About Cases Where One File Is Located In Several Archives?](#what-about-cases-where-one-file-is-located-in-several-archives)
 
@@ -146,6 +147,18 @@ Multiple archives:
   }
 }
 ```
+
+### Proposal Comparison
+First proposal has the benefit of making the `archiveContents` block optional.
+So in cases where the user does not care about the contents of the archives, they can omit the block.
+Alternatively it might be impossible to determine the contents of the archives, for example in case of binary splits.
+It can also handle cases where a single file is spread over multiple archives.
+Negative is the duplication of data, which can be a problem in case of objects with many files.
+
+The second proposal tries to make the `state` block more consistent with the way it has been used so far.
+Additionally it avoids duplicating information.
+However it would require listing what files are in which archive in `state` block.
+This can be a problem if contents of the archives are not known, or when same file is spread over several archives.
 
 **Recommendation: Proposal 2 seems like the better option to us, as it avoids duplication, and seems to be most consistent with current inventory.json structure.**
 
