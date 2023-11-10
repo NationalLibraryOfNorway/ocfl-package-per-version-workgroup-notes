@@ -6,6 +6,7 @@
    1. [Suggested File Structures After Removal of Small Files](#suggested-file-structures-after-removal-of-small-files)
       1. [Only Removing the Inventory Files in Version Folders](#only-removing-the-inventory-files-in-version-folders)
       1. [Removing the Inventory Files in Version Folders and the Sidecar File](#removing-the-inventory-files-in-version-folders-and-the-sidecar-file)
+      1. [Most Extreme Option](#most-extreme-option)
 
 ## What Small Files Are We Talking About?
 Ignoring contents of the `content` folder the basic file structure of an OCFL object is shown below:
@@ -94,9 +95,10 @@ Alternatively if we don't have inventory files for version that don't have conte
     ├── content.z01
     └── content.z02
 ```
+In this proposal each version would not add any small files.
 
 ### Removing the Inventory Files in Version Folders and the Sidecar File
-This makes the minimal version of the object contain only two small files, and then each version loses eihter two or one small file.
+This makes the minimal version of the object contain only two small files, and then each version loses either two or one small file.
 ```
 [object root]
 ├── 0=ocfl_object_1.1
@@ -105,6 +107,20 @@ This makes the minimal version of the object contain only two small files, and t
 │   └── content.zip
 ├── v2
 │   └── inventory.json
+└── v3
+    ├── content.zip
+    ├── content.z01
+    └── content.z02
+```
+
+### Most Extreme Option
+This proposal removes sidecar files, conformance files, and lastly inventory files in content free versions, while packaging the inventory files in other versions.
+This makes the minimal version of the object contain only one small file, and each version would not add any small files.
+```
+[object root]
+├── inventory.json
+├── v1
+│   └── content.zip
 └── v3
     ├── content.zip
     ├── content.z01
