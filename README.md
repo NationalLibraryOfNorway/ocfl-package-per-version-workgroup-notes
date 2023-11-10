@@ -4,8 +4,8 @@ Repository for notes, ideas, etc, from the the workgroup dedicated to introducin
 ## General Questions
 * [Container And Format Questions](container-and-format-questions.md)
 * [Single VS Multipart Containers questions](single-vs-multipart-containers-questions.md)
-* [What `archiveInformation` Should Contain?](archive-information-block.md)
-* [How To Structure Archive Manfiest?](archive-manifest-block.md)
+* [How To Structure Archive Information Block?](archive-information-block.md)
+* [How To Structure Archive Manifest Block?](archive-manifest-block.md)
 * [How Can Containers Limit the Number of Small Files?](limit-number-of-small-files.md)
 
 ## Proposal
