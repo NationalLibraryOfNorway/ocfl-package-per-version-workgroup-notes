@@ -16,6 +16,10 @@ This proposal has no impact on `inventory.json` and defines, that every package 
 * Any package has a sidecar file with the package name and the checksum algorithm as extension (i.e. `extensions.zip.sha512`) containing the checksum.
 * A package MUST NOT contain another package
 
+### Additions
+
+Multi part zip or multi zip solutions can be applied like proposed in the [Low Impact Proposal](proposal-low-impact.md).
+
 ### Example
 This means, that a file structure like
 
