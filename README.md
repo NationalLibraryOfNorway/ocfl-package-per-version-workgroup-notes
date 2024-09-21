@@ -12,6 +12,7 @@ Repository for notes, ideas, etc, from the the workgroup dedicated to introducin
 * [Low Impact Proposal](proposal-low-impact.md): a sidecar file for each container
 * [Medium Impact Proposal](proposal-medium-impact.md): add an `inventory-unpacked.json` file to each container
 * [High Impact Proposal](proposal-high-impact.md): add new blocks to `inventory.json` file
+* [Folder as Package](proposal-folder-as-package.md): any known folder can become a package
 
 ## Motivation
 [The Oxford Common File Layout (OCFL)](https://github.com/OCFL/spec "OCFL spec repository on GitHub") offers a good way of organizing files with focus on versioning.
